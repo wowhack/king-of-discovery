@@ -50,7 +50,7 @@ describe("http", function() {
             var joinRoom=Math.random();
             socket.on("joinedRoom",function(data){
                 data.joinRoom.should.equal(joinRoom);
-                data.count.should.equal(1);
+                data.count.should.equal(0);
                 done();
             });
             socket.emit("joinRoom",{
@@ -90,17 +90,38 @@ describe("http", function() {
             );
 
         });
-        it.skip("should be able to send 3 songs and catch them broadcast",function(done) {
+        it("should be able to send 3 songs and catch them broadcast",function(done) {
             this.timeout(200);
             var suggestions=[12,123,123];
 
-            socket.on("songsHaveBeenSuggested", function(data) {
+            socket.on("tracksHaveBeenSuggested", function(data) {
                 data.songs.should.deep.equal(suggestions);
                 done();
             })
-            socket.emit('suggestSongs', { songs:[12,123,123] });
+            socket.emit('suggestTracks', { tracks:[
+                {
+                    artists:[
+                        {
+                            name: {}
+                        },
+                        {
+                            name: {}
+                        },
+                        {
+                            name: {}
+                        },
+                        {
+                            name: {}
+                        }
+
+                    ]
+                },{
+                    artists:[]
+                },{
+                    artists:[]
+            }] });
         });
-        it("should be able to send messages but not see them itself",function(done){
+        /*it("should be able to send messages but not see them itself",function(done){
             this.timeout(2000);
 
             var message  = Math.random();
@@ -130,7 +151,7 @@ describe("http", function() {
             socket.emit("joinRoom",{
                 "joinRoom":joinRoom
             });
-        });
+        });*/
     })
 
 });

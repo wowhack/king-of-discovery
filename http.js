@@ -39,6 +39,9 @@ io.on('connection', function (socket) {
             socket.broadcast.to(socket.channel).emit('newMessage', data);
         }
     });
+    socket.on('suggestTracks', function (data) {
+        io.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
+    });
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
