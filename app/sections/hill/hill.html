@@ -1,16 +1,17 @@
 <h1>{{genre}}</h1>
 
 <div ng-controller="searchbar-controller">
-	<div class="song-choose" ng-hide="isKing">
+	<div class="song-choose" ng-show="isKing">
 		<input type="text" ng-model="query" />
 		<button class="btn" ng-click="search()">Search</button>
 		<button class="btn" ng-click="submitTracks()">Submit tracks</button>
+		<p data-ng-show="trackName">Added {{trackName}}</p>
 	</div>
-	<div class="song-trivia" ng-show="isKing">
+	<div class="song-trivia" ng-hide="isKing">
 		<div ng-repeat="track in tracks track by $index" class="col-md-4">
-			<audio src="track.preview[0]"></audio>
+			<audio id="{{$index}}" src="{{track.preview[0]}}"></audio>
 			<div ng-repeat="artist in track.artists track by $index" class="col-md-6">
-				<button class="btn" ng-click="">{{artist.name}}</button>
+				<button class="btn" ng-click="vote($index, artist.name)">{{artist.name}}</button>
 			</div>
 		</div>
 	</div>
