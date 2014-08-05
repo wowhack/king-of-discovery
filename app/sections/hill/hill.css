@@ -1,0 +1,24 @@
+.message-list {
+	overflow: auto;
+	height: 300px;
+}
+
+.chat-hill {
+	position: relative;
+	overflow: auto;
+}
+
+.chat-box {
+	position: relative;
+	padding-bottom: 50px;
+	bottom: 0px;
+	min-width: 300px;
+	max-width: 60%;
+	margin-left: 20%;
+}
+
+.message-box {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}

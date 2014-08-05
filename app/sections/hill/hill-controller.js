@@ -14,15 +14,21 @@
 		$scope.messages = [];
 
 		hillSocket.on('newMessage', function(data){
-			$scope.messages.push(data.message);
+			addMessage(data);
 		});
 
 		$scope.newMessage = "";
 
+		function addMessage(msg){
+			$scope.messages.push(msg);
+			$('.message-list').animate({ scrollTop: $('.message-list')[0].scrollHeight}, 200);
+		}
+
 		$scope.sendMessage = function(){
 			hillSocket.emit('newMessage',{message: $scope.newMessage});
-			$scope.messages.push($scope.newMessage);
+			addMessage({username: 'me', message: $scope.newMessage});
 			$scope.newMessage = "";
+			return false;
 		}
 
 	}]);
