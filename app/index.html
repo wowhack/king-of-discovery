@@ -10,6 +10,7 @@
     <!-- fileblock:css app-css -->
     <link href="/lib/css/lib.min.css" rel="stylesheet" />
     <link href="/kod.css" rel="stylesheet" />
+    <link href="/sections/hills/hills.css" rel="stylesheet" />
     <!-- endfileblock -->
 
     <!-- fileblock:js app-js -->
@@ -22,11 +23,33 @@
   </head>
   <body ng-controller="AppController">
 
-    <h1>King of Discovery</h1>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">King of Discovery</a>
+        </div>
 
-    <p>{{hello}}</p>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/about">About</a></li>
+          </ul>
+        </div>
 
+      </div>
 
+    </nav>
+
+    <div class="container">
+
+      <ng-view></ng-view>
+
+    </div>
 
   </body>
 </html>

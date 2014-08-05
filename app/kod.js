@@ -15,6 +15,10 @@
 				templateUrl: '/sections/hills/hills.html'
 			}).
 
+			when('/about', {
+				templateUrl: '/sections/about/about.html'
+			}).
+
 		    otherwise({
 		        redirectTo: '/'
 		    });
