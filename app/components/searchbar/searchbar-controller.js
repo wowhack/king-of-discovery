@@ -6,22 +6,21 @@
 			$scope.query = "";
 			$scope.trackLimit = 3;
 			$scope.tracks = [];
-			
-			var track = {};
-			var artist = { name: "" };
 
 			$scope.search = function() {
 				var promise = searchbarService.searchTracks($scope.query);
 
 				var successCallback = function(response) {
-					//if($scope.tracks.length < 3) {
+					if($scope.tracks.length < 3) {
+						var track = {};
+						var artist = { name: "" };
 						track.preview = [];
 
 						track.preview.push(response.tracks.items[0].preview_url);
 						artist.name = response.tracks.items[0].artists[0].name;
 
-						getSimilarArtists(artist.name);
-					//}
+						getSimilarArtists(artist.name, track, artist);
+					}
 				}
 
 				var errorCallback = function() {
@@ -31,14 +30,13 @@
 				promise.then(successCallback, errorCallback);
 			}
 
-			var getSimilarArtists = function(name) {
+			var getSimilarArtists = function(name, track, artist) {
 				var promise = searchbarService.getSimilarArtists(name);
 
 				var successCallback = function(response) {
 					track.artists = response.response.artists;
 					track.artists.push(artist);
 
-					//console.log(artists);
 					$scope.tracks.push(track);
 					console.log($scope.tracks);
 				}
