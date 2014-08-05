@@ -4,6 +4,7 @@
 
 	module.controller('HillController', ['$routeParams','$scope', function($routeParams, $scope){
 		$scope.genre = $routeParams.genre;
+		$scope.isKing = false;
 	}]);
 
 })();
