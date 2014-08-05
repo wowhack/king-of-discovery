@@ -11,32 +11,18 @@ var dependencies = {
 	css: [
 		'bootstrap/dist/css/bootstrap.min.css',
 		'sb-admin-v2/css/sb-admin.css',
-		'fontawesome/css/font-awesome.min.css',
-		'angular-rangeslider/angular.rangeSlider.css',
-		'angular-xeditable/dist/css/xeditable.css',
-		'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-		'nvd3/nv.d3.css'
+		'fontawesome/css/font-awesome.min.css'
 	],
 
 	js: [
-		'd3/d3.js',
 		'jquery/dist/jquery.min.js',
 		'angular/angular.min.js',
 		'angular-animate/angular-animate.min.js',
 		'angular-route/angular-route.min.js',
-		'angular-route-segment/build/angular-route-segment.js',
-		'angular-recursion/angular-recursion.js',
 		'ngstorage/ngStorage.min.js',
-		'angular-rangeslider/angular.rangeSlider.js',
-		'angular-xeditable/dist/js/xeditable.min.js',
 		'bootstrap/dist/js/bootstrap.min.js',
 		'angular-bootstrap/ui-bootstrap.min.js',
-		'angular-bootstrap/ui-bootstrap-tpls.min.js',
-		'nvd3/nv.d3.js',
-		'angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js'
-		//'moment/min/moment.min.js',
-		//'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
-		//'sb-admin-v2/js/sb-admin.js'
+		'angular-bootstrap/ui-bootstrap-tpls.min.js'
 	]
 }
 
@@ -186,7 +172,7 @@ module.exports = function (grunt) {
 		connect: {
 			server: {
 				options: {
-					port: 9001,
+					port: 9002,
 					base: 'app'
 				}
 			}
