@@ -6,6 +6,7 @@
 		$scope.genre = $routeParams.genre;
 		$scope.isKing = false;
 		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
+			console.log(ev, data);
 			console.log('hi!');
 			$scope.isKing = true;
 		});
