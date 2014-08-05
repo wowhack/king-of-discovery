@@ -77,21 +77,25 @@
 				var i = 0;
 				$scope.tracks = ev.tracks;
 				
-				play(i);
+				setTimeout(function(){
+					play(i);	
+				}, 100);
 			});
 
 			var play = function(i) {
-				var player = document.getElementById(i);
-				player.play();
+				if(i <= 2) {
+					var player = document.getElementById(i);
+					player.play();
 
-				player.addEventListener('ended', function() {
-					i++;
-					play(i);
-				});
+					player.addEventListener('ended', function() {
+						i++;
+						play(i);
+					});
+				}
 			}
 
 			$scope.addToPlaylist = function(uri) {
-
+				searchbarService.addToPlaylist(uri);
 			}
 		}
 	]);
