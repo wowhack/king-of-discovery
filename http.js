@@ -40,7 +40,7 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('suggestTracks', function (data) {
-        io.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
+        io.sockets.in(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
     // when the user disconnects.. perform this
@@ -57,6 +57,9 @@ io.on('connection', function (socket) {
             socket.emit("youAreTheKingOfDiscovery",{});
         }
         socket.join(joinRoom,function(){
+            io.sockets.in(socket.channel).emit("joinedRoom1",{
+                username:socket.username
+            });
             socket.emit("joinedRoom", {
                 joinRoom: joinRoom,
                 count: roomCount

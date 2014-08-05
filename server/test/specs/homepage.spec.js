@@ -99,27 +99,7 @@ describe("http", function() {
                 done();
             })
             socket.emit('suggestTracks', { tracks:[
-                {
-                    artists:[
-                        {
-                            name: {}
-                        },
-                        {
-                            name: {}
-                        },
-                        {
-                            name: {}
-                        },
-                        {
-                            name: {}
-                        }
-
-                    ]
-                },{
-                    artists:[]
-                },{
-                    artists:[]
-            }] });
+            ] });
         });
         /*it("should be able to send messages but not see them itself",function(done){
             this.timeout(2000);
