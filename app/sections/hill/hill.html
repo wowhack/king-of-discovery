@@ -11,3 +11,9 @@
 	<div class="chat-box"></div>
 	<div class="members members-right"></div>
 </div>
+
+<ul>
+	<li ng-repeat="mss in messages">{{mss}}</li>
+</ul>
+
+<input ng-model="newMessage"><a ng-click="sendMessage()">send</a>

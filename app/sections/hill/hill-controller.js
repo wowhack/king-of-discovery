@@ -11,6 +11,20 @@
 
 		hillSocket.emit('joinRoom',{joinRoom: $scope.genre});
 
+		$scope.messages = [];
+
+		hillSocket.on('newMessage', function(data){
+			$scope.messages.push(data.message);
+		});
+
+		$scope.newMessage = "";
+
+		$scope.sendMessage = function(){
+			hillSocket.emit('newMessage',{message: $scope.newMessage});
+			$scope.messages.push($scope.newMessage);
+			$scope.newMessage = "";
+		}
+
 	}]);
 
 })();
