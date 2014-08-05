@@ -1,8 +1,19 @@
 <h1>{{genre}}</h1>
-<div class="song-trivia" ng-hide="isKing"></div>
-<div class="song-choose" ng-show="isKing" ng-controller="searchbar-controller">
-	<input type="text" ng-model="query" />
-	<button ng-click="search()">Search</button>
+
+<div ng-controller="searchbar-controller">
+	<div class="song-choose" ng-hide="isKing">
+		<input type="text" ng-model="query" />
+		<button class="btn" ng-click="search()">Search</button>
+		<button class="btn" ng-click="submitTracks()">Submit tracks</button>
+	</div>
+	<div class="song-trivia" ng-show="isKing">
+		<div ng-repeat="track in tracks track by $index" class="col-md-4">
+			<audio src="track.preview[0]"></audio>
+			<div ng-repeat="artist in track.artists track by $index" class="col-md-6">
+				<button class="btn" ng-click="">{{artist.name}}</button>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="chat-hill">
 	<div class="members members-left"></div>

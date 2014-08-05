@@ -39,6 +39,9 @@ io.on('connection', function (socket) {
             socket.broadcast.to(socket.channel).emit('newMessage', data);
         }
     });
+    socket.on('suggestTracks', function (data) {
+        io.sockets.in(socket.channel).emit("tracksHaveBeenSuggested",data);
+    });
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
@@ -54,6 +57,9 @@ io.on('connection', function (socket) {
             socket.emit("youAreTheKingOfDiscovery",{});
         }
         socket.join(joinRoom,function(){
+            io.sockets.in(socket.channel).emit("joinedRoom1",{
+                username:socket.username
+            });
             socket.emit("joinedRoom", {
                 joinRoom: joinRoom,
                 count: roomCount
