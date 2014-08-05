@@ -2,7 +2,7 @@
 	
 	var module = angular.module('searchbar-controller',[]);
 
-	module.controller('searchbar-controller',['$scope', 'searchbar-service', function($scope, searchbarService){
+	module.controller('searchbar-controller',['$scope', 'searchbar-service', 'hillSocket', function($scope, searchbarService, hillSocket){
 			$scope.query = "";
 			$scope.tracks = [];
 
@@ -46,6 +46,14 @@
 
 				promise.then(successCallback, errorCallback);
 			}
+
+			$scope.submitTracks = function() {
+				hillSocket.emit('suggestTracks',{tracks: $scope.tracks});
+			}
+
+			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
+				$scope.tracks = ev.tracks;
+			});
 		}
 	]);
 
