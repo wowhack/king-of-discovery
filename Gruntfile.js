@@ -22,7 +22,8 @@ var dependencies = {
 		'ngstorage/ngStorage.min.js',
 		'bootstrap/dist/js/bootstrap.min.js',
 		'angular-bootstrap/ui-bootstrap.min.js',
-		'angular-bootstrap/ui-bootstrap-tpls.min.js'
+		'angular-bootstrap/ui-bootstrap-tpls.min.js',
+		'angular-socket-io/socket.js'
 	]
 }
 
