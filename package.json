@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "chai": "^1.9.1",
+    "chance": "^0.5.9",
     "express": "^4.7.4",
     "mocha": "^1.21.3",
-    "socket.io": "^1.0.6"
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.0.6"
   },
   "engines": {
     "node": null,
