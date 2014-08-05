@@ -36,9 +36,7 @@ io.on('connection', function (socket) {
                 username: socket.username,
                 message: data.message
             };
-            console.log("hi");
-            socket.broadcast.to(socket.channel).emit(socket.channel).emit('newMessage', data);
-            //socket.emit("newMessage",data);
+            socket.broadcast.to(socket.channel).emit('newMessage', data);
         }
     });
 
