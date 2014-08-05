@@ -14,7 +14,7 @@ server.listen(port, function () {
 });
 
 // Routing
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/app'));
 
 io.on('connection', function (socket) {
     socket.username = "hello";
@@ -36,7 +36,8 @@ io.on('connection', function (socket) {
                 username: socket.username,
                 message: data.message
             };
-            socket.to(socket.channel).emit(socket.channel).emit('newMessage', data);
+            console.log("hi");
+            socket.broadcast.to(socket.channel).emit(socket.channel).emit('newMessage', data);
             //socket.emit("newMessage",data);
         }
     });
@@ -47,7 +48,8 @@ io.on('connection', function (socket) {
     socket.on('joinRoom',function(data){
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;
-        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || []).length;
+
+        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || [1]).length;
 
         var roomIsEmpty = roomCount == 0;
         if (roomIsEmpty) {

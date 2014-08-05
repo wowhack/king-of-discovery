@@ -43,7 +43,7 @@ describe("http", function() {
         it.skip("should be able to update chat room quantities",function() {
 
         });
-        it.skip("should be able to join chat rooms",function(done) {
+        it("should be able to join chat rooms",function(done) {
             this.timeout(2000);
             var joinRoom=Math.random();
             socket.on("joinedRoom",function(data){
@@ -75,16 +75,20 @@ describe("http", function() {
 
             var otherSocket = createClient();
             otherSocket.emit("joinRoom",{"joinRoom":joinRoom});
-
+            otherSocket.on("youAreTheKingOfDiscovery",function(){
+                done();
+            });
             socket.on("youAreTheKingOfDiscovery",function(){
                 expect(true).to.equal(false);
             });
-            socket.emit("joinRoom",{
+            setTimeout(function() {socket.emit("joinRoom",{
                 "joinRoom":joinRoom
-            });
+                 })
+                },100
+            );
 
         });
-        it("should be able to send 3 songs and catch them broadcast",function(done) {
+        it.skip("should be able to send 3 songs and catch them broadcast",function(done) {
             this.timeout(200);
             var suggestions=[12,123,123];
 
@@ -104,7 +108,7 @@ describe("http", function() {
             otherSocket.emit("joinRoom",{"joinRoom":joinRoom});
 
             socket.on("newMessage",function(data) {
-
+                expect(true).to.equal(false);
             });
             otherSocket.on("newMessage",function(data) {
                 data.message.should.equal(message);
