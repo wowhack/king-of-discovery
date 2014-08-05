@@ -28,17 +28,19 @@ before(function(done){
 
 describe("http", function() {
     describe("connecting with client",function() {
-        before(function() {
+        beforeEach(function() {
             socket.removeAllListeners("joinedRoom");
             socket.removeAllListeners("youAreTheKingOfTheDiscovery");
+            socket.removeAllListeners("getDetails");
+
         });
-        it.skip("should assign you with a name",function(done) {
+        it("should assign you with a name",function(done) {
             this.timeout(200);
-            socket.on("getName",function(data){
+            socket.on("getDetails",function(data){
                 expect(data.name).to.exist;
                 done();
             });
-            socket.emit("getName");
+            socket.emit("getDetails");
         });
         it.skip("should be able to update chat room quantities",function() {
 
@@ -56,13 +58,13 @@ describe("http", function() {
             });
         });
 
-        it("should be become king of discovery upon entering an empty room",function(done) {
-            this.timeout(200);
+        it("should become king of discovery upon entering an empty room",function(done) {
+            this.timeout(2000);
             socket.on("youAreTheKingOfDiscovery",function(){
                 done();
             });
-            var joinRoom = "room15";
-                socket.emit("joinRoom", {
+            var joinRoom = Math.random();
+            socket.emit("joinRoom", {
                     "joinRoom": joinRoom
             });
 
@@ -105,21 +107,26 @@ describe("http", function() {
             var joinRoom = Math.random();
 
             var otherSocket = createClient();
-            otherSocket.emit("joinRoom",{"joinRoom":joinRoom});
 
             socket.on("newMessage",function(data) {
                 expect(true).to.equal(false);
             });
             otherSocket.on("newMessage",function(data) {
+                console.log("message recieved");
                 data.message.should.equal(message);
                 done();
             });
 
             socket.on("joinedRoom",function(data){
-                socket.emit("newMessage",{
-                    message: message
-                });
+                setTimeout(function(){
+                    console.log("Message sent",message);
+                    socket.emit("newMessage",{
+                        message: message
+                    });
+                },100);
             });
+            console.log("joinRoom",joinRoom)
+            otherSocket.emit("joinRoom",{"joinRoom":joinRoom});
             socket.emit("joinRoom",{
                 "joinRoom":joinRoom
             });

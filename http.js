@@ -29,15 +29,17 @@ io.on('connection', function (socket) {
     // when the client emits 'new message', this listens and executes
     socket.on('newMessage', function (data) {
         var socketChannelIsNotSet = socket.channel==null;
+        console.log("hello",socketChannelIsNotSet)
         if (socketChannelIsNotSet) {
-            socket.emit();
+
         } else {
+
             var data = {
                 username: socket.username,
                 message: data.message
             };
-            console.log("hi");
-            socket.broadcast.to(socket.channel).emit(socket.channel).emit('newMessage', data);
+            console.log("socket.channel",socket.channel);
+            socket.broadcast.to(socket.channel).emit('newMessage', data);
             //socket.emit("newMessage",data);
         }
     });
@@ -49,16 +51,16 @@ io.on('connection', function (socket) {
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;
 
-        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || [1]).length;
+        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || []).length;
 
         var roomIsEmpty = roomCount == 0;
         if (roomIsEmpty) {
-            socket.emit("youAreTheKingOfDiscovery",{});
+            socket.emit("youAreTheKingOfDiscovery",{"hello":"hi"});
         }
         socket.join(joinRoom,function(){
             socket.emit("joinedRoom", {
                 joinRoom: joinRoom,
-                count: roomCount
+                count: roomCount+1
             });
         });
     });
