@@ -6,14 +6,11 @@
 		$scope.genre = $routeParams.genre;
 		$scope.isKing = false;
 		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
-			console.log(ev, data);
-			console.log('hi!');
 			$scope.isKing = true;
 		});
 
-		$scope.joinRoom = function(){
-			hillSocket.emit('joinRoom',{joinRoom: $scope.genre});
-		}
+		hillSocket.emit('joinRoom',{joinRoom: $scope.genre});
+
 	}]);
 
 })();
