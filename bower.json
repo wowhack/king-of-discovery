@@ -1,0 +1,29 @@
+{
+  "name": "king-of-discovery",
+  "version": "0.0.1",
+  "authors": [
+    "Erpheus <erpheus@gmail.com>"
+  ],
+  "main": "app/index.html",
+  "license": "All rights reserved.",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": null,
+    "bootstrap": null,
+    "fontawesome": null,
+    "angular-fontawesome": null,
+    "angular": "1.2.x",
+    "angular-mocks": "~1.2.x",
+    "angular-route": "~1.2.x",
+    "ngstorage": null,
+    "angular-animate": "~1.2.19",
+    "angular-bootstrap": "~0.11.0"
+  }
+}
