@@ -7,6 +7,8 @@
 			$scope.tracks = [];
 			$scope.trackName = "";
 
+			var index = 0;
+
 			$scope.search = function() {
 				var promise = searchbarService.searchTracks($scope.query);
 
@@ -15,10 +17,15 @@
 						var track = {};
 						var artist = { name: "", correct: true };
 						track.preview = [];
+						track.uri = [];
+						track.index = index;
+						index++;
 						$scope.query = "";
 						$scope.trackName = response.tracks.items[0].name;
 
 						track.preview.push(response.tracks.items[0].preview_url);
+						var splitUri = response.tracks.items[0].uri.split(":");
+						track.uri.push(splitUri[2]);
 						artist.name = response.tracks.items[0].artists[0].name;
 
 						getSimilarArtists(artist.name, track, artist);
@@ -61,8 +68,8 @@
 				hillSocket.emit('suggestTracks',{tracks: $scope.tracks});
 			}
 
-			$scope.vote = function(index, name) {
-				console.log(index, name);
+			$scope.guess = function(index, name) {
+				hillSocket.emit('guess',{ index: index, artist: name });
 			}
 
 			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
@@ -80,6 +87,10 @@
 					i++;
 					play(i);
 				});
+			}
+
+			$scope.addToPlaylist = function(uri) {
+
 			}
 		}
 	]);
