@@ -2,7 +2,10 @@
 <p>{{isKing}}</p>
 <a ng-click="joinRoom()">Click me!</a>
 <div class="song-trivia" ng-hide="isKing"></div>
-<div class="song-choose" ng-show="isKing"></div>
+<div class="song-choose" ng-show="isKing" ng-controller="searchbar-controller">
+	<input type="text" ng-model="query" />
+	<button ng-click="search()">Search</button>
+</div>
 <div class="chat-hill">
 	<div class="members members-left"></div>
 	<div class="chat-box"></div>

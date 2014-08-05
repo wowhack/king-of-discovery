@@ -13,7 +13,7 @@
 				var successCallback = function(response) {
 					if($scope.tracks.length < 3) {
 						var track = {};
-						var artist = { name: "" };
+						var artist = { name: "", correct: true };
 						track.preview = [];
 
 						track.preview.push(response.tracks.items[0].preview_url);
