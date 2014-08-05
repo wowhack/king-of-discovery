@@ -2,7 +2,7 @@
 	var lib_dependencies = ['ngRoute',
 							'ngStorage'],
 							
-	    src_dependencies = ['kod-controller', 'searchbar-controller', 'searchbar-service'];
+	    src_dependencies = ['kod-controller', 'searchbar-controller', 'searchbar-service', 'hill-thumbnail-directive'];
 
 	var app = angular.module('kod',lib_dependencies.concat(src_dependencies));
 
