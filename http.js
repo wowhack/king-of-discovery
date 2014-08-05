@@ -51,10 +51,8 @@ io.on('connection', function (socket) {
 
         var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || [1]).length;
 
-        var roomIsEmpty = roomCount == 1;
-
+        var roomIsEmpty = roomCount == 0;
         if (roomIsEmpty) {
-            console.log("hello");
             socket.emit("youAreTheKingOfDiscovery",{});
         }
         socket.join(joinRoom,function(){

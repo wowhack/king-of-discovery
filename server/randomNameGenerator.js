@@ -6,7 +6,7 @@ var preName = [
     "Cuddly", "Fierce", "Cute", "Dancing", "Bacon"
 ];
 var name = [
-  "",
+  "hello",
   "",
   ""
 ];
