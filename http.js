@@ -47,7 +47,7 @@ io.on('connection', function (socket) {
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;
 
-        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || [1]).length;
+        var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || []).length;
 
         var roomIsEmpty = roomCount == 0;
         if (roomIsEmpty) {
