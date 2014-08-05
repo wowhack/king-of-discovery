@@ -4,7 +4,6 @@
 
 	module.controller('searchbar-controller',['$scope', 'searchbar-service', function($scope, searchbarService){
 			$scope.query = "";
-			$scope.trackLimit = 3;
 			$scope.tracks = [];
 
 			$scope.search = function() {
