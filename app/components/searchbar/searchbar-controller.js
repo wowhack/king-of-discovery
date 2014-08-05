@@ -69,7 +69,8 @@
 			}
 
 			$scope.guess = function(index, name) {
-				hillSocket.emit('guess',{ index: index, artist: name });
+				var guess = { index: index, artist: name };
+				hillSocket.emit('guess',{ votes : guess });
 			}
 
 			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
