@@ -1,13 +1,29 @@
 (function(){
 	
-	var module = angular.module('hill-socket-service',['btford.socket-io']);
+	var module = angular.module('hill-socket-service',[]);
 
-	module.factory('hill-socket', ['socketFactory', function(socketFactory){
-		var socket = socketFactory();
-		socket.forward('youAreTheKingOfDiscovery');
-		socket.forward('newMessage');
-		socket.forward('joinedRoom');
-		return socket;
+	module.factory('hillSocket', [function(){
+		var socket = io.connect();
+		return {
+		    on: function (eventName, callback) {
+		      socket.on(eventName, function () {  
+		        var args = arguments;
+		        $rootScope.$apply(function () {
+		          callback.apply(socket, args);
+		        });
+		      });
+		    },
+		    emit: function (eventName, data, callback) {
+		      socket.emit(eventName, data, function () {
+		        var args = arguments;
+		        $rootScope.$apply(function () {
+		          if (callback) {
+		            callback.apply(socket, args);
+		          }
+		        });
+		      })
+		    }
+		};
 	}])
 
 })();
