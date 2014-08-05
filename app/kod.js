@@ -2,7 +2,12 @@
 	var lib_dependencies = ['ngRoute',
 							'ngStorage'],
 							
-	    src_dependencies = ['kod-controller', 'searchbar-controller', 'searchbar-service', 'hill-thumbnail-directive'];
+	    src_dependencies = ['kod-controller',
+	    					'searchbar-controller',
+	    					'searchbar-service',
+	    					'hill-thumbnail-directive',
+	    					'hill-controller'
+	    					];
 
 	var app = angular.module('kod',lib_dependencies.concat(src_dependencies));
 
@@ -17,6 +22,11 @@
 
 			when('/about', {
 				templateUrl: '/sections/about/about.html'
+			}).
+
+			when('/hill/:genre',{
+				templateUrl: '/sections/hill/hill.html',
+				controller: 'HillController'
 			}).
 
 		    otherwise({
