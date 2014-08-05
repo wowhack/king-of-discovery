@@ -26,7 +26,7 @@
 
 		$scope.sendMessage = function(){
 			hillSocket.emit('newMessage',{message: $scope.newMessage});
-			addMessage({username: 'me', message: $scope.newMessage});
+			addMessage({username: 'me', message: $scope.newMessage, me: true});
 			$scope.newMessage = "";
 			return false;
 		}
