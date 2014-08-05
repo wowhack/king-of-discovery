@@ -2,15 +2,17 @@
 	
 	var module = angular.module('hill-controller',['ngRoute','hill-socket-service']);
 
-	module.controller('HillController', ['$routeParams','$scope','hill-socket', function($routeParams, $scope, HillSocket){
+	module.controller('HillController', ['$routeParams','$scope','hillSocket', function($routeParams, $scope, hillSocket){
 		$scope.genre = $routeParams.genre;
 		$scope.isKing = false;
-		$scope.$on('socket:youAreTheKingOfDiscovery', function(ev, data){
+		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
+			console.log(ev, data);
+			console.log('hi!');
 			$scope.isKing = true;
 		});
 
 		$scope.joinRoom = function(){
-			HillSocket.emit('joinRoom',{joinRoom: $scope.genre});
+			hillSocket.emit('joinRoom',{joinRoom: $scope.genre});
 		}
 	}]);
 
