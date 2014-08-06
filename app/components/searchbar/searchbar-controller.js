@@ -37,7 +37,7 @@
 				var successCallback = function(response) {
 					var swap = {};
 					var number = 0;
-
+                    console.log(track.artists);
 					track.artists = response.response.artists;
 					track.artists.push(artist);
 					swap = track.artists[3];
