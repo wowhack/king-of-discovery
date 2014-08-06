@@ -3,13 +3,14 @@
  */
 // Setup basic express server
 var express = require('express');
+var voteAlgo = require('./voteAlgo');
+
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 process.env.PORT = process.env.PORT || 3000;
 var port = process.env.PORT;
 var channels={
-
     //qwdkwek:{ [0] -- [1] -- ..}
 };
 server.listen(port, function () {
@@ -43,21 +44,45 @@ io.on('connection', function (socket) {
         }
     });
     socket.on("guess",function(data){
-
+        socket.votes = socket.votes || {};
+        socket.votes[data.votes.index] = {
+            answered: {
+                time: new Date().getTime(),
+                name: data.votes.artist
+            }
+        };
     });
     socket.on('suggestTracks', function (data) {
         channels[socket.channel] = {
             "votedata" : data
         };
         setTimeout(function(){
-
             var socketIdsOfPersonsInRoom = io.nsps["/"].adapter.rooms[socket.channel]; //@TODO make sure we are connected.
-            console.log(io.sockets.connected);    //
-            //console.log(io.adapter.rooms[socket.channel]);
+            var answers={};
+            for(var i = 0; i < channels[socket.channel].votedata.tracks.length; i++) {
+                var artists = channels[socket.channel].votedata.tracks[i].artists;
+                var correctAnswer="";
+                for (var j = 0; j<artists.length;j++) {
+                    if (artists[j].correct) {
+                        correctAnswer=artists[j].name;
+                    }
+                }
+                answers[i]=correctAnswer;
+            }
 
-            io.sockets.in(socket.channel).emit("finished",data);
+            var results=voteAlgo.loopThrough(io.sockets.connected,socketIdsOfPersonsInRoom,new Date().getTime(),answers);
 
-        },1000);
+            var winner = voteAlgo.getMinimum(results);
+            console.log("winner",winner);
+            if (winner) {
+                winner.socket.emit("youAreTheKingOfDiscovery",{
+                   "whatup" : true
+                });
+            }
+
+            //io.sockets.in(socket.channel).emit("finished",data);
+
+        },60000);
         socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 

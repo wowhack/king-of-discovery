@@ -1,23 +1,26 @@
 /**
  * Created by Aleksandar on 2014-08-05.
  */
-var user, answers;
+var user, answers, socketConnections, connectionStrings;
 var voteAlgo=require("../../../voteAlgo");
 before(function(){
-    user= {votes: {
+    user={votes: {
             "0": {
                 answered: {
-                    time: 4000
+                    time: 4000,
+                    name: "Bill Gates"
                 }
             },
             "1": {
                 answered: {
-                    time: 5000
+                    time: 5000,
+                    name: "Curt Kobain"
                 }
 
             }, "2": {
                 answered: {
-                    time: 6000
+                    time: 6000,
+                    name: "Bill Clinton"
                 }
             }
         }
@@ -27,15 +30,19 @@ before(function(){
         "1":"Curt Kobain",
         "2":"Bill Clinton"
     }
+    connecteds={
+        "123":user
+    }
+    socketIdsOfPersonsInRoom={"123":true};
 })
 describe("The most advancedAlgorithm",function() {
     describe("getUserPoint",function() {
         it("should be able to return how much time it has passed since user has answered", function () {
             var timeNow = 3000;
             var timeExpected = 6000;
-            console.log(6000);
-            var points =voteAlgo.getUserPoint(user, timeNow);
+            var points =voteAlgo.getUserPoint(user, timeNow,answers);
             points.amountOfPoints.should.equal(parseInt(6000));
+            points.amountOfCorrect.should.equal(3);
         })
     });
     describe("getCorrectAnswer",function() {
@@ -60,4 +67,23 @@ describe("The most advancedAlgorithm",function() {
             answer.should.equal(false);
         });
     });
+    describe("loopThrough",function(){
+        it("should loop through all alternatives",function() {
+            var results = voteAlgo.loopThrough(connecteds, socketIdsOfPersonsInRoom,3000,answers);
+            expect(results[0].amountOfPoints).to.equal(6000);
+            expect(results[0].amountOfCorrect).to.equal(3);
+
+        });
+    })
+    describe("getMinimum",function(){
+        it("should return 123",function() {
+            var results= voteAlgo.loopThrough(connecteds, socketIdsOfPersonsInRoom,3000,answers);
+            console.log("results",results);
+            var result = voteAlgo.getMinimum(results);
+            console.log("result",result);
+            expect(results[0].amountOfPoints).to.equal(6000);
+            expect(results[0].amountOfCorrect).to.equal(3);
+
+        });
+    })
 });
