@@ -11,14 +11,20 @@ module.exports={
                 "amountOfCorrect": amountOfCorrect
             };
         }
+
         for (var key in user.votes) {
             var obj = user.votes[key];
             //TODO
-            amountOfPoints += obj.answered.time-timeStarted;
-            if (module.exports.checkIfCorrect(obj.answered.name,key,answers)) {
 
+            amountOfPoints += 90000 - (obj.answered.time-timeStarted);
+
+            if (module.exports.checkIfCorrect(obj.answered.name,key,answers)) {
                 amountOfCorrect++;
             };
+        };
+        if (amountOfCorrect==3) {
+            user.totalPoints = user.totalPoints || 0;
+            user.totalPoints += amountOfPoints;
         };
         return {
             "amountOfPoints": amountOfPoints,
@@ -76,13 +82,27 @@ module.exports={
             if (currentObj.amountOfCorrect > lowestObj.amountOfCorrect) {
                 lowest=i;
             } else if (currentObj.amountOfCorrect == lowestObj.amountOfCorrect) {
-                if (currentObj.amountOfPoints<lowestObj.amountOfPoints) {
+                if (currentObj.amountOfPoints>lowestObj.amountOfPoints) {
                     lowest=i;
                 }
             }
         }
         console.log("results",results)
         return results[lowest];
+    },"getHillData":function(connecteds,socketIdsOfPersonsInRoom) {
+        var results=[];
+        for (var key in socketIdsOfPersonsInRoom) {
+            if (!connecteds) {
+                return [];
+            }
+            var socket = connecteds[key];
+            var result = {
+                "username":socket.username,
+                "points":socket.totalPoints
+            }
+            results.push(result);
+        }
+        return results;
     }
 
 };
