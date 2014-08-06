@@ -34,8 +34,9 @@
 				controller: 'searchbar-controller'
 			}).
 
-			when('/:token*', {
-				controller: 'spotifyController'
+			when('/:token', {
+				controller: 'spotifyController',
+				template: 'Loading...'
 			});
 
 		    /*otherwise({
