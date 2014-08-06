@@ -16,6 +16,7 @@ module.exports={
             //TODO
             amountOfPoints += obj.answered.time-timeStarted;
             if (module.exports.checkIfCorrect(obj.answered.name,key,answers)) {
+
                 amountOfCorrect++;
             };
         };
@@ -80,6 +81,7 @@ module.exports={
                 }
             }
         }
+        console.log("results",results)
         return results[lowest];
     }
 

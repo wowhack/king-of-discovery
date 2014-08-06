@@ -83,7 +83,7 @@ io.on('connection', function (socket) {
                 });
             }
             //io.sockets.in(socket.channel).emit("finished",data);
-        },10000);
+        },90000);
         socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
