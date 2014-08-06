@@ -7,7 +7,8 @@
 	    					'searchbar-service',
 	    					'hill-thumbnail-directive',
 	    					'hill-controller',
-	    					'spotifyController'
+	    					'spotifyController',
+	    					'spotify-service'
 	    					];
 
 	var app = angular.module('kod',lib_dependencies.concat(src_dependencies));

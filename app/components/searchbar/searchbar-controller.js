@@ -2,7 +2,7 @@
 	
 	var module = angular.module('searchbar-controller',[]);
 
-	module.controller('searchbar-controller',['$scope', 'searchbar-service', 'hillSocket', function($scope, searchbarService, hillSocket){
+	module.controller('searchbar-controller',['$scope', 'searchbar-service', 'hillSocket', 'spotify-service', function($scope, searchbarService, hillSocket, spotifyService){
 			$scope.query = "";
 			$scope.tracks = [];
 			$scope.trackName = "";
@@ -101,6 +101,7 @@
 			$scope.addToPlaylist = function(uri) {
 				searchbarService.addToPlaylist(uri);
 			}
+
 		}
 	]);
 
