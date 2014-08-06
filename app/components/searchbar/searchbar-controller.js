@@ -14,23 +14,9 @@
 
 				var successCallback = function(response) {
 					if($scope.tracks.length < 3) {
-						var track = {};
-						var artist = { name: "", correct: true };
-						track.preview = [];
-						track.uri = [];
-						track.index = index;
-						index++;
 						$scope.query = "";
-						track.name = response.tracks.items[0].name;
-						track.artist = response.tracks.items[0].artists[0].name; 
-						$scope.trackName = response.tracks.items[0].name;
-
-						track.preview.push(response.tracks.items[0].preview_url);
-						var splitUri = response.tracks.items[0].uri.split(":");
-						track.uri.push(splitUri[2]);
-						artist.name = response.tracks.items[0].artists[0].name;
-
-						getSimilarArtists(artist.name, track, artist);
+						$scope.chooseTrack = response.tracks.items;
+						$scope.trackChoosen = response.tracks.items[0];
 					}
 				}
 
@@ -111,6 +97,25 @@
 				searchbarService.addToPlaylist(uri);
 			}
 
+			$scope.setChoosenTrack = function() {
+				var track = {};
+				var artist = { name: "", correct: true };
+				track.preview = [];
+				track.uri = [];
+				track.index = index;
+				index++;
+
+				track.name = $scope.trackChoosen.name;
+				track.artist = $scope.trackChoosen.artists[0].name; 
+				$scope.trackName = $scope.trackChoosen.name;
+
+				track.preview.push($scope.trackChoosen.preview_url);
+				var splitUri = $scope.trackChoosen.uri.split(":");
+				track.uri.push(splitUri[2]);
+				artist.name = $scope.trackChoosen.artists[0].name;
+
+				getSimilarArtists(artist.name, track, artist);
+			}
 		}
 	]);
 
