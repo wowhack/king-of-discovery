@@ -12,5 +12,7 @@ module.controller('spotifyController',['$scope','$routeParams', 'spotify-service
 	  return result;
 	}
 
-	//window.location = "http://localhost:3000/";	
+	setTimeout( function() {
+		window.location = "http://localhost:3000/";
+	}, 100);	
 }]);
