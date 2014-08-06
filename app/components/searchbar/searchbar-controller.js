@@ -66,6 +66,8 @@
 
 			$scope.submitTracks = function() {
 				hillSocket.emit('suggestTracks',{tracks: $scope.tracks});
+				$scope.$parent.isKing = false;
+				$scope.$parent.wait = true;
 			}
 
 			$scope.guess = function(index, name) {
@@ -74,6 +76,7 @@
 			}
 
 			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
+				$scope.$parent.wait = false;
 				var i = 0;
 				$scope.tracks = ev.tracks;
 				

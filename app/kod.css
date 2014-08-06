@@ -9,3 +9,7 @@ html {
 h1 {
 	color: #4DCFDB;
 }
+
+.crossed {
+	text-decoration: line-through;
+}

@@ -21,7 +21,7 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/app'));
 
 io.on('connection', function (socket) {
-    socket.username = "hello";
+    socket.username = "hello" + Math.round(Math.random()*100);
     socket.channel = null;
 
     socket.on("getDetails",function(){
@@ -82,7 +82,7 @@ io.on('connection', function (socket) {
 
             //io.sockets.in(socket.channel).emit("finished",data);
 
-        },60000);
+        },90000);
         socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
