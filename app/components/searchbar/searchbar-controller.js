@@ -21,6 +21,8 @@
 						track.index = index;
 						index++;
 						$scope.query = "";
+						track.name = response.tracks.items[0].name;
+						track.artist = response.tracks.items[0].artists[0].name; 
 						$scope.trackName = response.tracks.items[0].name;
 
 						track.preview.push(response.tracks.items[0].preview_url);
@@ -30,6 +32,10 @@
 
 						getSimilarArtists(artist.name, track, artist);
 					}
+				}
+
+				$scope.removeTrack = function(index) {
+					$scope.tracks.splice(index,1);
 				}
 
 				var errorCallback = function() {
@@ -66,6 +72,8 @@
 
 			$scope.submitTracks = function() {
 				hillSocket.emit('suggestTracks',{tracks: $scope.tracks});
+				$scope.$parent.isKing = false;
+				$scope.$parent.wait = true;
 			}
 
 			$scope.guess = function(index, name) {
@@ -74,6 +82,7 @@
 			}
 
 			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
+				$scope.$parent.wait = false;
 				var i = 0;
 				$scope.tracks = ev.tracks;
 				
