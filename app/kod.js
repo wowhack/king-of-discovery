@@ -6,7 +6,8 @@
 	    					'searchbar-controller',
 	    					'searchbar-service',
 	    					'hill-thumbnail-directive',
-	    					'hill-controller'
+	    					'hill-controller',
+	    					'spotifyController'
 	    					];
 
 	var app = angular.module('kod',lib_dependencies.concat(src_dependencies));
@@ -28,10 +29,18 @@
 				templateUrl: '/sections/hill/hill.html',
 				controller: 'HillController'
 			}).
+			when('/callback', {
+				templateUrl: '/sections/hills/hills.html',
+				controller: 'searchbar-controller'
+			}).
 
-		    otherwise({
+			when('/:token*', {
+				controller: 'spotifyController'
+			});
+
+		    /*otherwise({
 		        redirectTo: '/'
-		    });
+		    });*/
 
 		    $sceDelegateProvider.resourceUrlWhitelist([
      			'self',
