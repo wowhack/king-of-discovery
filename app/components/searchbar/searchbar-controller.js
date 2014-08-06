@@ -16,7 +16,11 @@
 					if($scope.tracks.length < 3) {
 						$scope.query = "";
 						$scope.chooseTrack = response.tracks.items;
-						$scope.trackChoosen = response.tracks.items[0];
+						$scope.chooseTrack.push({ name: "Choose a track" });
+						var swap = $scope.chooseTrack[$scope.chooseTrack.length - 1];
+						$scope.chooseTrack[$scope.chooseTrack.length - 1] = $scope.chooseTrack[0];
+						$scope.chooseTrack[0] = swap;
+						$scope.trackChoosen = $scope.chooseTrack[0];
 					}
 				}
 
@@ -37,7 +41,7 @@
 				var successCallback = function(response) {
 					var swap = {};
 					var number = 0;
-
+                    console.log(track.artists);
 					track.artists = response.response.artists;
 					track.artists.push(artist);
 					swap = track.artists[3];

@@ -78,12 +78,17 @@ io.on('connection', function (socket) {
                 winner.socket.emit("youAreTheKingOfDiscovery",{
                    "whatup" : true
                 });
+
+                var hillData = voteAlgo.getHillData(io.sockets.connected,socketIdsOfPersonsInRoom);
+                console.log("hillData",hillData);
                 winner.socket.broadcast.to(socket.channel).emit("youHaveNotWon",{
-                    "answer":answers
+                    "answer":answers,
+                    "hillData":hillData
                 });
+
             }
             //io.sockets.in(socket.channel).emit("finished",data);
-        },10000);
+        },90000);
         socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
@@ -100,15 +105,12 @@ io.on('connection', function (socket) {
         socket.channel=joinRoom;
 
         var roomCount = Object.keys(io.sockets.adapter.rooms[joinRoom] || []).length;
-
+        console.log(io.sockets.adapter.rooms[joinRoom]);
         var roomIsEmpty = roomCount == 0;
 
         if (roomIsEmpty) {
-            socket.emit("youAreTheKingOfDiscovery",{
-
-            });
+            socket.emit("youAreTheKingOfDiscovery",{ });
         }
-
         socket.join(joinRoom,function(){
             socket.emit("joinedRoom", {
                 "joinRoom": joinRoom,

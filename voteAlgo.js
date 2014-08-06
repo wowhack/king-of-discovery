@@ -11,13 +11,22 @@ module.exports={
                 "amountOfCorrect": amountOfCorrect
             };
         }
+
         for (var key in user.votes) {
             var obj = user.votes[key];
             //TODO
-            amountOfPoints += obj.answered.time-timeStarted;
+
+            amountOfPoints += 90000 - (obj.answered.time-timeStarted);
+
             if (module.exports.checkIfCorrect(obj.answered.name,key,answers)) {
                 amountOfCorrect++;
             };
+        };
+        user.totalPoints = user.totalPoints || 0;
+        user.lastPoints = 0;
+        if (amountOfCorrect==3) {
+            user.totalPoints += amountOfPoints;
+            user.lastPoints = amountOfPoints;
         };
         return {
             "amountOfPoints": amountOfPoints,
@@ -41,15 +50,24 @@ module.exports={
                 return [];
             }
             console.log("connectedsKey",connecteds[key]);
-            var userResult = module.exports.getUserPoint(connecteds[key], timeStarted, answers);
-            var result = {
-                "amountOfPoints": userResult.amountOfPoints,
-                "amountOfCorrect":userResult.amountOfCorrect,
-                socket:connecteds[key]
-            };
-            if (!(userResult.amountOfPoints == 0 && userResult.amountOfCorrect == 0)) {
-                results.push(result);
+            try {
+                var userResult = module.exports.getUserPoint(connecteds[key], timeStarted, answers);
+                var result = {
+                    "amountOfPoints": userResult.amountOfPoints,
+                    "amountOfCorrect": userResult.amountOfCorrect,
+                    socket: connecteds[key]
+                };
+            } catch (err) {
+                var result = {
+                    "amountOfPoints": 0,
+                    "amountOfCorrect": 0,
+                    socket: connecteds[key]
+                };
             }
+                results.push(result);
+
+
+
         }
         return results;
     },
@@ -66,12 +84,27 @@ module.exports={
             if (currentObj.amountOfCorrect > lowestObj.amountOfCorrect) {
                 lowest=i;
             } else if (currentObj.amountOfCorrect == lowestObj.amountOfCorrect) {
-                if (currentObj.amountOfPoints<lowestObj.amountOfPoints) {
+                if (currentObj.amountOfPoints>lowestObj.amountOfPoints) {
                     lowest=i;
                 }
             }
         }
+        console.log("results",results)
         return results[lowest];
+    },"getHillData":function(connecteds,socketIdsOfPersonsInRoom) {
+        var results=[];
+        for (var key in socketIdsOfPersonsInRoom) {
+            if (!connecteds) {
+                return [];
+            }
+            var socket = connecteds[key];
+            var result = {
+                "username":socket.username,
+                "points":socket.totalPoints
+            }
+            results.push(result);
+        }
+        return results;
     }
 
 };

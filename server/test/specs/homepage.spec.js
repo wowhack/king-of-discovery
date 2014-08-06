@@ -58,18 +58,6 @@ describe("http", function() {
                 "joinRoom":joinRoom
             });
         });
-
-        it("should become king of discovery upon entering an empty room",function(done) {
-            this.timeout(2000);
-            socket.on("youAreTheFutureKingOfDiscovery",function(){
-                done();
-            });
-            var joinRoom = Math.random();
-            socket.emit("joinRoom", {
-                    "joinRoom": joinRoom
-            });
-
-        });
         it("should NOT become king of discovery upon entering an filled room",function(done) {
             setTimeout(function(){
                 done();
