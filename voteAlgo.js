@@ -22,9 +22,11 @@ module.exports={
                 amountOfCorrect++;
             };
         };
+        user.totalPoints = user.totalPoints || 0;
+        user.lastPoints = 0;
         if (amountOfCorrect==3) {
-            user.totalPoints = user.totalPoints || 0;
             user.totalPoints += amountOfPoints;
+            user.lastPoints = amountOfPoints;
         };
         return {
             "amountOfPoints": amountOfPoints,
