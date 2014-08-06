@@ -8,8 +8,9 @@
 			      <span class="input-group-btn">
 			        <button class="btn btn-info" ng-click="search()" type="button">Search</button>
 			      </span>
-			      <select ng-model="trackChoosen" data-ng-show="chooseTrack" ng-options="track.name for track in chooseTrack" ng-change="setChoosenTrack()"></select> 
 			    </div>
+			    <br />
+			    <select class="form-control" ng-model="trackChoosen" data-ng-show="chooseTrack" ng-options="track.name for track in chooseTrack" ng-change="setChoosenTrack()"></select> 
 		    </div>
 
 		    <!--<p data-ng-show="trackName">Added {{trackName}}</p>-->
