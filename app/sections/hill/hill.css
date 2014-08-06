@@ -133,6 +133,14 @@
 	position: absolute;
 	bottom: 5px;
 	left: -500px;
+	transition-property: bottom, left;
+	transition-duration: 2s, 2s;
+}
+
+.guy.king {
+	left: 0px !important;
+	bottom: 330px !important;
+
 }
 
 
@@ -168,7 +176,24 @@
     animation-name: wobble; 
 }
 
-.guy:nth-of-type(1) {
+@-webkit-keyframes bubble { 
+  0% { -webkit-transform: scale(1); } 
+  50% { -webkit-transform: scale(1.3); } 
+  95% { -webkit-transform: scale(0.9); } 
+  100% { -webkit-transform: scale(1) } 
+} 
+@keyframes bubble { 
+  0% { transform: scale(1); } 
+  50% { transform: scale(1.3); } 
+  95% { transform: scale(0.9); } 
+  100% { transform: scale(1) } 
+} 
+.wobble.king { 
+    -webkit-animation-name: wobble, bubble; 
+    animation-name: wobble, bubble; 
+}
+
+/*.guy:nth-of-type(1) {
   animation-delay: 300ms;
   -webkit-animation-delay: 300ms;
 }
@@ -196,4 +221,4 @@
 .guy:nth-of-type(6) {
   animation-delay: 130ms;
   -webkit-animation-delay: 130ms;
-}
+}*/
