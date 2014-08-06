@@ -1,6 +1,7 @@
 <div class="top-wrapper">
 
 	<div ng-controller="searchbar-controller">
+		<input type="checkbox" ng-model="isKing"><input type="checkbox" ng-model="wait">
 		<div class="song-choose" ng-show="isKing">
 			<div class="limit">
 				<div class="input-group">
@@ -35,8 +36,27 @@
 		<div class="song-trivia row" ng-hide="isKing || wait">
 			<div ng-repeat="track in tracks track by $index" class="col-md-4">
 				<audio id="{{$index}}" ng-src="{{track.preview[0]}}"></audio>
-				<div ng-repeat="artist in track.artists track by $index" class="col-md-6">
-					<button class="btn" ng-click="guess(track.index, artist.name)">{{artist.name}}</button>
+				<div class="artist-options">
+					<div class="upper-artist">
+						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[0].name}}</div>
+						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[1].name}}</div>
+					</div>
+					<div class="lower-artist">
+						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[2].name}}</div>
+						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[3].name}}</div>
+					<!--<table>
+						<tr>
+							<td class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[0].name}}</td>
+							<td class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[1].name}}</td>
+						</tr>
+						<tr>
+							<td class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[2].name}}</td>
+							<td class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[3].name}}</td>
+						</tr>
+					</table>-->
+					<!--<div ng-repeat="artist in track.artists track by $index" class="col-md-6 artist-option" ">-->
+						
+					</div>
 				</div>
 				<br />
 				<button class="btn btn-success" ng-click="addToPlaylist(track.uri)">Add to playlist</button>
