@@ -7,7 +7,7 @@
 
 			$scope.authorize = function() {
 				var client_id = 'be734b9e87474a4faaa56aab77d608b6';
-				var redirect_uri = 'http://localhost:3000/';
+				var redirect_uri = 'http://king-of-discovery.herokuapp.com/';
 				var scope = 'user-library-modify';
 
 				var authorizeUrl = 'https://accounts.spotify.com/authorize';

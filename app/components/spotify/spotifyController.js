@@ -13,6 +13,6 @@ module.controller('spotifyController',['$scope','$routeParams', 'spotify-service
 	}
 
 	setTimeout( function() {
-		window.location = "http://localhost:3000/";
+		window.location = "http://king-of-discovery.herokuapp.com/";
 	}, 100);	
 }]);
