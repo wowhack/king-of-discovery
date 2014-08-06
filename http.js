@@ -100,7 +100,18 @@ io.on('connection', function (socket) {
         }
     });
 
+    socket.on('clear', function () {
+        if (socket.channel) {
+            socket.leave(socket.channel);
+        }
+    })
+
     socket.on('joinRoom',function(data){
+
+        if (socket.channel) {
+            socket.leave(socket.channel);
+        }
+
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;
 

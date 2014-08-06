@@ -8,7 +8,8 @@
 	    					'hill-thumbnail-directive',
 	    					'hill-controller',
 	    					'spotifyController',
-	    					'spotify-service'
+	    					'spotify-service',
+	    					'hills-controller'
 	    					];
 
 	var app = angular.module('kod',lib_dependencies.concat(src_dependencies));
@@ -19,7 +20,8 @@
 			$routeProvider.
 
 			when('/', {
-				templateUrl: '/sections/hills/hills.html'
+				templateUrl: '/sections/hills/hills.html',
+				controller: 'HillsController'
 			}).
 
 			when('/about', {
