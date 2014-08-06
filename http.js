@@ -4,7 +4,7 @@
 // Setup basic express server
 var express = require('express');
 var voteAlgo = require('./voteAlgo');
-
+var randomName=require('./server/randomNameGenerator');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -21,7 +21,7 @@ server.listen(port, function () {
 app.use(express.static(__dirname + '/app'));
 
 io.on('connection', function (socket) {
-    socket.username = "hello" + Math.round(Math.random()*100);
+    socket.username = randomName();
     socket.channel = null;
 
     socket.on("getDetails",function(){
@@ -78,21 +78,23 @@ io.on('connection', function (socket) {
                 winner.socket.emit("youAreTheKingOfDiscovery",{
                    "whatup" : true
                 });
-                winner.broadcast.to(socket.channel).emit("youHaveNotWon",{
-                    "answer":answer
+                winner.socket.broadcast.to(socket.channel).emit("youHaveNotWon",{
+                    "answer":answers
                 });
             }
-
             //io.sockets.in(socket.channel).emit("finished",data);
-
-        },90000);
+        },10000);
         socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
-
+        var chatCount=Object.keys(io.sockets.adapter.rooms[socket.channel] || []);
+        if (chatCount==0) {
+            channels[socket.channel]={};
+        }
     });
+
     socket.on('joinRoom',function(data){
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;

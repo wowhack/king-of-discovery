@@ -1,18 +1,67 @@
 /**
  * Created by Aleksandar on 2014-08-05.
  */
-var chance = require("chance");
-var preName = [
-    "Cuddly", "Fierce", "Cute", "Dancing", "Bacon"
-];
-var name = [
-  "hello",
-  "",
-  ""
-];
-var sufName = [
+var arr = ["Sabre-Toothed Tiger",
+    "Saint Bernard",
+    "Salamander",
+    "Sand Lizard",
+    "Saola",
+    "Scorpion",
+    "Scorpion Fish",
+    "Sea Dragon",
+    "Sea Lion",
+    "Sea Otter",
+    "Sea Slug",
+    "Sea Squirt",
+    "Sea Turtle",
+    "Sea Urchin",
+    "Seahorse",
+    "Seal",
+    "Serval",
+    "Sheep",
+    "Shih Tzu",
+    "Shrimp",
+    "Siamese",
+    "Siamese Fighting Fish",
+    "Siberian",
+    "Siberian Husky",
+    "Siberian Tiger",
+    "Silver Dollar",
+    "Skunk",
+    "Sloth",
+    "Slow Worm",
+    "Snail",
+    "Snake",
+    "Snapping Turtle",
+    "Snowshoe",
+    "Snowy Owl",
+    "South China Tiger",
+    "Spadefoot Toad",
+    "Sparrow",
+    "Spectacled Bear",
+    "Sperm Whale",
+    "Spider Monkey",
+    "Spiny Dogfish",
+    "Sponge",
+    "Squid",
+    "Squirrel",
+    "Squirrel Monkey",
+    "Sri Lankan Elephant",
+    "Staffordshire Bull Terrier",
+    "Stag Beetle",
+    "Starfish",
+    "Stellers Sea Cow",
+    "Stick Insect",
+    "Stingray",
+    "Stoat",
+    "Striped Rocket Frog",
+    "Sumatran Elephant",
+    "Sumatran Orang-utan",
+    "Sumatran Rhinoceros",
+    "Sumatran Tiger",
+    "Sun Bear",
+    "Swan"];
 
-];
 module.exports=function() {
-
+    return arr[Math.floor(Math.random() * arr.length)];
 }
