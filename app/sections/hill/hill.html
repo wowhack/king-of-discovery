@@ -11,16 +11,16 @@
 			    </div>
 		    </div>
 
-		    <p data-ng-show="trackName">Added {{trackName}}</p>
+		    <!--<p data-ng-show="trackName">Added {{trackName}}</p>-->
 
 		    <div class="row song-previews">
 		    	<div class="col-sm-4" ng-repeat="i in [0,1,2]">
-		    		<div class="song-preview" ng-class="{complete: i%2 == 1}">
-		    			<p class="more-songs-prompt" ng-show="i%2 == 0">Please select more songs</p>
-		    			<span ng-show="i%2 == 1">
-		    				<a class="remove-btn btn-danger btn"><i class="fa fa-times"></i></a>
-		    				<h5>Song name</h5>
-		    				<p>Artist</p>
+		    		<div class="song-preview" ng-class="{complete: tracks.length > i}">
+		    			<p class="more-songs-prompt" ng-show="tracks.length <= i">Please select more songs</p>
+		    			<span ng-show="tracks.length > i">
+		    				<a class="remove-btn btn-danger btn" ng-click="removeTrack(i)"><i class="fa fa-times"></i></a>
+		    				<h5>{{tracks[i].name}}</h5>
+		    				<p>{{tracks[i].artist}}</p>
 		    			</span>
 		    		</div>
 		    	</div>
@@ -41,7 +41,7 @@
 				<button class="btn btn-success" ng-click="addToPlaylist(track.uri)">Add to playlist</button>
 			</div>
 		</div>
-		<h4 ng-show="wait">Time to wait for some songs!</h4>
+		<h2 ng-show="wait">Time to wait for some songs!</h2>
 	</div>
 	
 </div>
