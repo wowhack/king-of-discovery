@@ -78,6 +78,9 @@ io.on('connection', function (socket) {
                 winner.socket.emit("youAreTheKingOfDiscovery",{
                    "whatup" : true
                 });
+                winner.broadcast.to(socket.channel).emit("youHaveNotWon",{
+                    "answer":answer
+                });
             }
 
             //io.sockets.in(socket.channel).emit("finished",data);
@@ -88,6 +91,7 @@ io.on('connection', function (socket) {
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
+
     });
     socket.on('joinRoom',function(data){
         var joinRoom = data.joinRoom;

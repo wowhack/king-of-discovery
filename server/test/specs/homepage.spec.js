@@ -61,7 +61,7 @@ describe("http", function() {
 
         it("should become king of discovery upon entering an empty room",function(done) {
             this.timeout(2000);
-            socket.on("youAreTheKingOfDiscovery",function(){
+            socket.on("youAreTheFutureKingOfDiscovery",function(){
                 done();
             });
             var joinRoom = Math.random();
