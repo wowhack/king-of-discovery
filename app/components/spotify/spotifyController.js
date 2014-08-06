@@ -1,7 +1,7 @@
 var module = angular.module('spotifyController',['ngRoute']);
 
-module.controller('spotifyController',['$scope','$routeParams', function($scope, $routeParams){
-	console.log(getJsonFromUrl($routeParams.token));
+module.controller('spotifyController',['$scope','$routeParams', 'spotify-service', function($scope, $routeParams, spotifyService){
+	spotifyService.setAccessToken(getJsonFromUrl($routeParams.token));
 	function getJsonFromUrl(text) {
 	  var data = text.split("&");
 	  var result = {};
@@ -11,4 +11,6 @@ module.controller('spotifyController',['$scope','$routeParams', function($scope,
 	  }
 	  return result;
 	}
+
+	//window.location = "http://localhost:3000/";	
 }]);

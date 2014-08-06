@@ -21,6 +21,7 @@
     <script src="/components/hill-thumbnail/hill-thumbnail-directive.js"></script>
     <script src="/components/searchbar/searchbar-controller.js"></script>
     <script src="/components/searchbar/searchbar-service.js"></script>
+    <script src="/components/spotify/spotify-service.js"></script>
     <script src="/components/spotify/spotifyController.js"></script>
     <script src="/kod-controller.js"></script>
     <script src="/kod-directives.js"></script>
@@ -47,7 +48,7 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a ng-click="authorize()">Log in with Spotify</a></li>
+            <li><a ng-click="authorize()" data-ng-bind="login"></a></li>
             <li><a href="#/about">About</a></li>
           </ul>
         </div>
