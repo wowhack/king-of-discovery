@@ -1,6 +1,6 @@
 (function(){
 	
-	var module = angular.module('hill-controller',['ngRoute','hill-socket-service']);
+	var module = angular.module('hill-controller',['ngRoute','hill-socket-service','guy-directive']);
 
 	module.controller('HillController', ['$routeParams','$scope','hillSocket', function($routeParams, $scope, hillSocket){
 		$scope.genre = $routeParams.genre;
