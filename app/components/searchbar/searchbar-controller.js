@@ -82,6 +82,10 @@
 				}, 100);
 			});
 
+			hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
+				$scope.tracks = [];
+			});
+
 			var play = function(i) {
 				if(i <= 2) {
 					var player = document.getElementById(i);
