@@ -61,6 +61,9 @@
 			}
 
 			$scope.submitTracks = function() {
+				if ($scope.tracks.length != 3){
+					return;
+				}
 				hillSocket.emit('suggestTracks',{tracks: $scope.tracks});
 				$scope.$parent.isKing = false;
 				$scope.$parent.wait = true;
@@ -75,6 +78,7 @@
 				$scope.$parent.wait = false;
 				var i = 0;
 				$scope.tracks = ev.tracks;
+				$scope.$parent.answers = null;
 				
 				setTimeout(function(){
 					play(i);	

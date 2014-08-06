@@ -9,6 +9,14 @@
 		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
 			$scope.isKing = true;
 			$scope.wait = false;
+			$scope.answers = null;
+		});
+
+		hillSocket.on('youHaveNotWon',function(data){
+			$scope.wait = true;
+			$scope.isKing = false;
+			console.log(data);
+			$scope.answers = data;
 		});
 
 		hillSocket.emit('joinRoom',{joinRoom: $scope.genre});

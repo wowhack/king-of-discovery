@@ -30,7 +30,7 @@
 		    </div>
 
 		    <div class="centerer">
-				<button class="btn btn-success" ng-click="submitTracks()">Submit tracks</button>
+				<button class="btn btn-success" ng-class="{disabled: tracks.length != 3}" ng-click="submitTracks()">Submit tracks</button>
 			</div>
 			
 		</div>
@@ -64,6 +64,7 @@
 			</div>
 		</div>
 		<h2 ng-show="wait">Time to wait for some songs!</h2>
+		<p ng-show="answers">Correct answers were <span ng-repeat="answer in answers.answer">{{ answer }} </span>.</p>
 	</div>
 	
 </div>
