@@ -6,6 +6,8 @@
 			$scope.query = "";
 			$scope.tracks = [];
 			$scope.trackName = "";
+			$scope.answered = [false,false,false,false];
+			$scope.answer = {};
 
 			var index = 0;
 
@@ -69,9 +71,11 @@
 				$scope.$parent.wait = true;
 			}
 
-			$scope.guess = function(index, name) {
+			$scope.guess = function(index, name, i) {
 				var guess = { index: index, artist: name };
 				hillSocket.emit('guess',{ votes : guess });
+				answered[index] = true;
+				answer[index] = i;
 			}
 
 			hillSocket.on('tracksHaveBeenSuggested', function(ev, data){
@@ -79,7 +83,8 @@
 				var i = 0;
 				$scope.tracks = ev.tracks;
 				$scope.$parent.answers = null;
-				
+				$scope.answered = [false,false,false,false];
+				$scope.answer = {};
 				setTimeout(function(){
 					play(i);	
 				}, 100);
@@ -87,6 +92,8 @@
 
 			hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
 				$scope.tracks = [];
+				$scope.answered = [false,false,false,false];
+				$scope.answer = {};
 			});
 
 			var play = function(i) {

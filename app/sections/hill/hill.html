@@ -38,12 +38,12 @@
 				<audio id="{{$index}}" ng-src="{{track.preview[0]}}"></audio>
 				<div class="artist-options">
 					<div class="upper-artist">
-						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[0].name}}</div>
-						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[1].name}}</div>
+						<div class="artist-option" ng-class="{frozen: answered[track.index], selected: answer[track.index]==0}" ng-click="guess(track.index, artist.name, 0)">{{track.artists[0].name}}</div>
+						<div class="artist-option" ng-class="{frozen: answered[track.index], selected: answer[track.index]==1}" ng-click="guess(track.index, artist.name, 1)">{{track.artists[1].name}}</div>
 					</div>
 					<div class="lower-artist">
-						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[2].name}}</div>
-						<div class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[3].name}}</div>
+						<div class="artist-option" ng-class="{frozen: answered[track.index], selected: answer[track.index]==2}" ng-click="guess(track.index, artist.name, 2)">{{track.artists[2].name}}</div>
+						<div class="artist-option" ng-class="{frozen: answered[track.index], selected: answer[track.index]==3}" ng-click="guess(track.index, artist.name, 3)">{{track.artists[3].name}}</div>
 					<!--<table>
 						<tr>
 							<td class="artist-option"  ng-click="guess(track.index, artist.name)">{{track.artists[0].name}}</td>
