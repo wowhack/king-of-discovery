@@ -5,9 +5,6 @@
 var express = require('express');
 var voteAlgo = require('./voteAlgo');
 
-
-var hardcodedAnswers = null; //TODO
-
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -56,22 +53,42 @@ io.on('connection', function (socket) {
         };
     });
     socket.on('suggestTracks', function (data) {
-        channels[socket.channel].futureAnswers = data;
+        channels[socket.channel] = {
+            "votedata" : data
+        };
+        setTimeout(function(){
+            var socketIdsOfPersonsInRoom = io.nsps["/"].adapter.rooms[socket.channel]; //@TODO make sure we are connected.
+            var answers={};
+            for(var i = 0; i < channels[socket.channel].votedata.tracks.length; i++) {
+                var artists = channels[socket.channel].votedata.tracks[i].artists;
+                var correctAnswer="";
+                for (var j = 0; j<artists.length;j++) {
+                    if (artists[j].correct) {
+                        correctAnswer=artists[j].name;
+                    }
+                }
+                answers[i]=correctAnswer;
+            }
+
+            var results=voteAlgo.loopThrough(io.sockets.connected,socketIdsOfPersonsInRoom,new Date().getTime(),answers);
+
+            var winner = voteAlgo.getMinimum(results);
+            console.log("winner",winner);
+            if (winner) {
+                winner.socket.emit("youAreTheKingOfDiscovery",{
+                   "whatup" : true
+                });
+            }
+
+            //io.sockets.in(socket.channel).emit("finished",data);
+
+        },60000);
+        socket.broadcast.to(socket.channel).emit("tracksHaveBeenSuggested",data);
     });
 
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
-
-        if (!socket.channel){
-            return;
-        }
-
-        var roomCount = Object.keys(io.sockets.adapter.rooms[socket.channel] || []).length;
-        if (roomCount == 0){
-            clearInterval(channels[socket.channel].interval);
-        }
     });
-
     socket.on('joinRoom',function(data){
         var joinRoom = data.joinRoom;
         socket.channel=joinRoom;
@@ -81,12 +98,9 @@ io.on('connection', function (socket) {
         var roomIsEmpty = roomCount == 0;
 
         if (roomIsEmpty) {
-            socket.emit("youAreTheFutureKingOfDiscovery",{
+            socket.emit("youAreTheKingOfDiscovery",{
 
             });
-            channels[joinRoom] = {};
-            channels[joinRoom].interval = setInterval(roomTick(joinRoom), 10000);
-            channels[joinRoom].futureKing = socket;
         }
 
         socket.join(joinRoom,function(){
@@ -98,90 +112,3 @@ io.on('connection', function (socket) {
     });
 
 });
-
-
-var pass = 1;
-
-var roomTick = function(channelId){
-    return function() {
-
-        console.log("\n\n\n");
-        console.log("PASS "+pass);
-        console.log("------\n");
-        pass += 1;
-
-        var channel = channels[channelId];
-
-        // check results of just finisehd round
-        var socketIdsOfPersonsInRoom = io.nsps["/"].adapter.rooms[channelId];
-        var filtered = {};
-        for (var key in socketIdsOfPersonsInRoom) {
-            if (channel.king && key == channel.king.id){
-                continue;
-            }
-            if (channel.futureKing && key == channel.futureKing.id){
-                continue;
-            }
-            filtered[key] = socketIdsOfPersonsInRoom[key];
-        }
-
-        var winner = channel.king;
-
-        if (channel.answers && Object.keys(filtered).length > 0) {
-
-            trackData = channel.answers;
-            var finalAnswers = [];
-
-            for (var i = 0; i < trackData.tracks.length; i++) {
-                var track = trackData.tracks[i];
-                for (var j = 0; j < track.artists.length; j++) {
-                    if (track.artists[j].correct){
-                        finalAnswers.push(track.artists[j].name);
-                        break;
-                    }
-                };
-            };
-
-            var results=voteAlgo.loopThrough(io.sockets.connected,socketIdsOfPersonsInRoom,new Date().getTime(),finalAnswers);
-
-            winner = voteAlgo.getMinimum(results).socket || winner;
-
-        }
-
-        if (channel.futureAnswers) {
-            console.log("There are answers");
-            channel.futureKing.broadcast.to(channelId).emit("tracksHaveBeenSuggested",channel.futureAnswers);
-        }
-
-        
-        if (winner) {
-
-            console.log("There is a winner!!!");
-
-            //Move on to the next round
-            channel.answers = channel.futureAnswers || hardcodedAnswers;
-            channel.futureAnswers = null;
-
-            channel.king = channel.futureKing;
-            channel.futureKing = winner;
-        
-            winner.emit("youAreTheFutureKingOfDiscovery",{});
-            if (channel.king){
-                channel.king.emit("youAreTheKingOfDiscovery",{});
-            }
-
-        } else {
-
-            console.log("There is no winner :(");
-            channel.king = channel.futureKing;
-            channel.futureKing = null;
-            channel.king.emit("youAreTheKingOfDiscovery",{});
-            channel.answers = channel.futureAnswers || hardcodedAnswers;
-            channel.futureAnswers = null;            
-        }
-
-        
-
-
-    }
-}
