@@ -41,15 +41,24 @@ module.exports={
                 return [];
             }
             console.log("connectedsKey",connecteds[key]);
-            var userResult = module.exports.getUserPoint(connecteds[key], timeStarted, answers);
-            var result = {
-                "amountOfPoints": userResult.amountOfPoints,
-                "amountOfCorrect":userResult.amountOfCorrect,
-                socket:connecteds[key]
-            };
-            if (!(userResult.amountOfPoints == 0 && userResult.amountOfCorrect == 0)) {
-                results.push(result);
+            try {
+                var userResult = module.exports.getUserPoint(connecteds[key], timeStarted, answers);
+                var result = {
+                    "amountOfPoints": userResult.amountOfPoints,
+                    "amountOfCorrect": userResult.amountOfCorrect,
+                    socket: connecteds[key]
+                };
+            } catch (err) {
+                var result = {
+                    "amountOfPoints": 0,
+                    "amountOfCorrect": 0,
+                    socket: connecteds[key]
+                };
             }
+                results.push(result);
+
+
+
         }
         return results;
     },
