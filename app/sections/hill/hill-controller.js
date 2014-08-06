@@ -5,8 +5,14 @@
 	module.controller('HillController', ['$routeParams','$scope','hillSocket', function($routeParams, $scope, hillSocket){
 		$scope.genre = $routeParams.genre;
 		$scope.isKing = false;
-		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
+		hillSocket.on('youAreTheFutureKingOfDiscovery', function(ev, data){
+			console.log("Future King");
 			$scope.isKing = true;
+		});
+
+		hillSocket.on('youAreTheKingOfDiscovery', function(ev, data){
+			console.log("King");
+			$scope.isKing = false;
 		});
 
 		hillSocket.emit('joinRoom',{joinRoom: $scope.genre});

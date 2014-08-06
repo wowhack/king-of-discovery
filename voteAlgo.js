@@ -34,13 +34,13 @@ module.exports={
     loopThrough:function(connecteds,socketIdsOfPersonsInRoom,timeStarted,answers) {
         var results=[];
         for (var key in socketIdsOfPersonsInRoom) {
-            console.log("connecteds",connecteds);
-            console.log("socketIds",socketIdsOfPersonsInRoom);
+            //console.log("connecteds",connecteds);
+            //console.log("socketIds",socketIdsOfPersonsInRoom);
             if (!connecteds) {
-                console.log("connectds not set");
+                //console.log("connectds not set");
                 return [];
             }
-            console.log("connectedsKey",connecteds[key]);
+            //console.log("connectedsKey",connecteds[key]);
             var userResult = module.exports.getUserPoint(connecteds[key], timeStarted, answers);
             var result = {
                 "amountOfPoints": userResult.amountOfPoints,
