@@ -194,7 +194,7 @@
 }
 
 .artist-options {
-	border: solid 1px #333;
+	border: solid 1px #ffffff;
 	border-radius: 3px;
 	width: 100%;
 	heigth: 100%;
@@ -203,22 +203,48 @@
 .upper-artist, .lower-artist {
 	height: 50%;
 	width: 100%;
+	cursor: pointer;
 }
 
 .artist-option:nth-of-type(1) {
-	border-bottom: solid 1px #333;
+	border-bottom: solid 1px #ffffff;
+	padding: 4px;
 }
 
 .artist-option:nth-of-type(2) {
-	border-left: solid 1px #333;
+	border-left: solid 1px #ffffff;
+	border-bottom: solid 1px #ffffff;
+	padding: 4px;
 }
 
 .artist-option:nth-of-type(3) {
-	border-top: solid 1px #333;
+	border-top: solid 1px #ffffff;
+	padding: 4px;
 }
 
 .artist-option:nth-of-type(4) {
-	border-right: solid 1px #333;
+	border-right: solid 1px #ffffff;
+	padding: 4px;
+}
+
+.artist-option:nth-of-type(1):hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.artist-option:nth-of-type(2):hover {
+	background-color: #ffffff;
+	color: #000000;
+}	
+
+.artist-option:nth-of-type(3):hover {
+	background-color: #ffffff;
+	color: #000000;
+}	
+
+.artist-option:nth-of-type(4):hover {
+	background-color: #ffffff;
+	color: #000000;
 }
 
 
