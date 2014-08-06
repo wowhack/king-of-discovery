@@ -104,9 +104,7 @@ io.on('connection', function (socket) {
         var roomIsEmpty = roomCount == 0;
 
         if (roomIsEmpty) {
-            socket.emit("youAreTheKingOfDiscovery",{
-
-            });
+            socket.emit("youAreTheKingOfDiscovery",{ });
         }
 
         socket.join(joinRoom,function(){
